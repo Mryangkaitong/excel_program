@@ -1,0 +1,29 @@
+'ÌáÈ¡CDÊý×Ö
+Sub mycode() 
+
+     Dim i As Integer
+     i = 1
+     While Len(Sheet1.Cells(i, 1)) <> 0
+       Dim j As Integer
+       Dim regx As Object
+       Dim str As String
+       Set regx = CreateObject("vbscript.regexp")
+       str = Sheet1.Cells(i, 1).Value
+       With regx
+       .Global = True
+       .Pattern = "CD+\d+"
+       
+       j = 0
+       For Each m In .Execute(str)
+       If j = 0 Then
+       Sheet2.Cells(i, 1).Value = m
+       Else
+       Sheet2.Cells(i, 1).Value = Sheet2.Cells(i, 1).Value & "_"
+       Sheet2.Cells(i, 1).Value = Sheet2.Cells(i, 1).Value & m
+       End If
+       j = j + 1
+       Next
+      End With
+      i = i + 1
+    Wend
+End Sub
